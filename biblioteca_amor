@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Para Niurka Mariley 🤍</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400&display=swap" rel="stylesheet"/>
+  <style>
+    /* ===== VARIABLES Y RESET ===== */
+    :root {
+      --cream:   #fdf6ef;
+      --blush:   #f2d9d0;
+      --rose:    #c9837a;
+      --deep:    #7a3f3a;
+      --gold:    #c9a96e;
+      --text:    #3d2b29;
+      --soft:    #f7ece6;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+ 
+    /* ===== PÉTALOS FLOTANTES ===== */
+    .petal {
+      position: fixed;
+      width: 10px; height: 14px;
+      border-radius: 100% 0 100% 0;
+      opacity: 0;
+      animation: fall linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes fall {
+      0%   { transform: translateY(-40px) rotate(0deg);   opacity: 0.7; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+ 
+    /* ===== HERO ===== */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+      background:
+        radial-gradient(ellipse at 20% 30%, #f9e4dc 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 70%, #f2d9d0 0%, transparent 55%),
+        var(--cream);
+      overflow: hidden;
+    }
+    .hero-deco {
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(circle, var(--rose) 1px, transparent 1px);
+      background-size: 40px 40px;
+      opacity: 0.05;
+    }
+    .hero-tag {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(0.85rem, 2vw, 1rem);
+      letter-spacing: 0.25em;
+      color: var(--rose);
+      margin-bottom: 1.2rem;
+      opacity: 0;
+      animation: fadeUp 1s 0.4s forwards;
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 8vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--deep);
+      max-width: 720px;
+      opacity: 0;
+      animation: fadeUp 1s 0.7s forwards;
+    }
+    .hero-title em { color: var(--rose); font-style: italic; }
+    .hero-sub {
+      margin-top: 1.2rem;
+      font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: var(--rose);
+      opacity: 0;
+      animation: fadeUp 1s 1s forwards;
+    }
+    .btn-primary {
+      display: inline-block;
+      margin-top: 2.8rem;
+      padding: 0.9rem 2.6rem;
+      border: 1.5px solid var(--rose);
+      border-radius: 50px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--deep);
+      text-decoration: none;
+      cursor: pointer;
+      background: transparent;
+      transition: background 0.4s, color 0.4s, transform 0.3s;
+      opacity: 0;
+      animation: fadeUp 1s 1.3s forwards;
+    }
+    .btn-primary:hover {
+      background: var(--rose);
+      color: #fff;
+      transform: translateY(-3px);
+    }
+    .scroll-hint {
+      position: absolute; bottom: 2rem;
+      font-size: 0.7rem; letter-spacing: 0.2em;
+      color: var(--rose); opacity: 0.6;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(6px); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+ 
+    /* ===== SECCIÓN BASE ===== */
+    section { padding: 5rem 1.5rem; max-width: 900px; margin: 0 auto; }
+    .section-label {
+      display: block;
+      font-size: 0.72rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 300;
+      color: var(--deep);
+      line-height: 1.2;
+      margin-bottom: 2.5rem;
+    }
+ 
+    /* ===== LÍNEA DE TIEMPO ===== */
+    #timeline { max-width: 780px; }
+    .timeline-wrap { position: relative; padding-left: 2rem; }
+    .timeline-wrap::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 1.5px;
+      background: linear-gradient(to bottom, transparent, var(--blush) 15%, var(--rose) 50%, var(--blush) 85%, transparent);
+    }
+    .tl-item {
+      position: relative;
+      margin-bottom: 3.5rem;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity 0.7s, transform 0.7s;
+    }
+    .tl-item.visible { opacity: 1; transform: translateX(0); }
+    .tl-dot {
+      position: absolute; left: -2.55rem; top: 0.3rem;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--rose);
+      border: 2px solid var(--cream);
+      box-shadow: 0 0 0 3px var(--blush);
+    }
+    .tl-date {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+    .tl-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      color: var(--deep);
+      margin-bottom: 0.5rem;
+    }
+    .tl-desc {
+      font-size: 0.9rem; font-weight: 300;
+      color: #7a5e5b;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    /* === FOTO PLACEHOLDER ===
+       Reemplaza el atributo src con la URL real de tu foto.
+       Ejemplo: src="https://i.imgur.com/tuFoto.jpg"
+    */
+    .tl-photo {
+      width: 100%; max-width: 420px;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 3px solid var(--blush);
+      box-shadow: 4px 6px 20px rgba(201,131,122,0.18);
+      display: block;
+      background: var(--blush);
+    }
+ 
+    /* ===== RAZONES ===== */
+    #razones { max-width: 900px; }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 1.4rem;
+    }
+    .card {
+      perspective: 1000px;
+      height: 220px;
+      cursor: pointer;
+    }
+    .card-inner {
+      position: relative; width: 100%; height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.65s cubic-bezier(.4,0,.2,1);
+      border-radius: 16px;
+    }
+    .card:hover .card-inner,
+    .card.flipped .card-inner { transform: rotateY(180deg); }
+    .card-front, .card-back {
+      position: absolute; inset: 0;
+      backface-visibility: hidden;
+      border-radius: 16px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 1.4rem;
+      text-align: center;
+    }
+    .card-front {
+      background: linear-gradient(135deg, var(--soft), var(--blush));
+      border: 1.5px solid rgba(201,131,122,0.2);
+      box-shadow: 0 4px 20px rgba(201,131,122,0.12);
+    }
+    .card-front .icon { font-size: 2rem; margin-bottom: 0.8rem; }
+    .card-front h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem; font-weight: 400;
+      color: var(--deep);
+    }
+    .card-back {
+      background: linear-gradient(135deg, var(--rose), var(--deep));
+      transform: rotateY(180deg);
+    }
+    /* === MENSAJES DE AMOR ===
+       Reemplaza cada párrafo .card-msg con tu mensaje personal.
+    */
+    .card-msg {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; font-style: italic;
+      color: #fff; line-height: 1.6;
+    }
+ 
+    /* ===== DIVIDER ===== */
+    .divider {
+      width: 60px; height: 1.5px;
+      background: linear-gradient(to right, transparent, var(--rose), transparent);
+      margin: 0 auto 2rem;
+    }
+ 
+    /* ===== BOTÓN FLOTANTE ===== */
+    #fab {
+      position: fixed;
+      bottom: 1.8rem; right: 1.8rem;
+      width: 58px; height: 58px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--rose), var(--deep));
+      border: none; cursor: pointer;
+      font-size: 1.5rem;
+      box-shadow: 0 6px 24px rgba(122,63,58,0.35);
+      transition: transform 0.3s, box-shadow 0.3s;
+      z-index: 100;
+      display: flex; align-items: center; justify-content: center;
+    }
+    #fab:hover { transform: scale(1.1) rotate(-8deg); box-shadow: 0 10px 30px rgba(122,63,58,0.4); }
+ 
+    /* ===== MODAL ===== */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(61,43,41,0.55);
+      backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem;
+      z-index: 200;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.4s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--cream);
+      border-radius: 20px;
+      max-width: 480px; width: 100%;
+      padding: 2.8rem 2.4rem;
+      text-align: center;
+      transform: scale(0.9);
+      transition: transform 0.4s;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(122,63,58,0.25);
+    }
+    .modal-overlay.open .modal { transform: scale(1); }
+    .modal-close {
+      position: absolute; top: 1rem; right: 1.2rem;
+      background: none; border: none; cursor: pointer;
+      font-size: 1.4rem; color: var(--rose);
+    }
+    .modal-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .modal-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.9rem; font-weight: 300;
+      color: var(--deep); margin-bottom: 1.2rem;
+    }
+    /* === CARTA FINAL ===
+       Reemplaza el texto dentro de .modal-body con tu carta personal.
+    */
+    .modal-body {
+      font-size: 0.95rem; font-weight: 300;
+      color: #7a5e5b; line-height: 1.85;
+      font-style: italic;
+    }
+    .modal-firma {
+      margin-top: 1.4rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem; color: var(--rose);
+    }
+ 
+    /* ===== FOOTER ===== */
+    footer {
+      text-align: center; padding: 2.5rem 1rem;
+      font-size: 0.78rem; letter-spacing: 0.15em;
+      color: var(--rose); opacity: 0.7;
+    }
+ 
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 480px) {
+      .cards-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+      .card { height: 180px; }
+      .card-front .icon { font-size: 1.5rem; }
+      .card-front h3 { font-size: 0.95rem; }
+      .card-msg { font-size: 0.85rem; }
+      section { padding: 3.5rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+ 
+<!-- ===== PÉTALOS ANIMADOS ===== -->
+<!-- Script genera pétalos de rosa flotantes automáticamente -->
+ 
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <div class="hero-deco"></div>
+  <span class="hero-tag">✦ Un regalo de Jesús, solo para ti ✦</span>
+  <h1 class="hero-title">
+    Para mi <em>conejita</em> del corazón,<br>Niurka Mariley
+  </h1>
+  <p class="hero-sub">Este espacio es tuyo — construido con todo mi amor</p>
+  <a href="#timeline" class="btn-primary">Descubre por qué te amo</a>
+  <span class="scroll-hint">↓ scroll ↓</span>
+</section>
+ 
+<!-- ===== LÍNEA DE TIEMPO ===== -->
+<section id="timeline">
+  <span class="section-label">Nuestra historia</span>
+  <h2 class="section-title">Los momentos que<br>guardo en el corazón</h2>
+ 
+  <div class="timeline-wrap">
+ 
+    <!-- MOMENTO 1 — Reemplaza la fecha, título, descripción y src de la foto -->
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <p class="tl-date">— El día que todo comenzó —</p>
+      <h3 class="tl-title">El primer momento</h3>
+      <p class="tl-desc">
+        Aquí escribe cómo se conocieron, qué sentiste, ese instante especial
+        que cambió todo. Reemplaza este texto con tus palabras.
+      </p>
+      <!-- FOTO 1: Reemplaza "src" con la URL de tu primera foto -->
+      <img class="tl-photo" src="https://placehold.co/420x315/f2d9d0/c9837a?text=📸+Tu+foto+aquí" alt="Foto 1"/>
+    </div>
+ 
+    <!-- MOMENTO 2 — 14 de junio ⭐ -->
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <p class="tl-date">— 14 de junio ⭐ —</p>
+      <h3 class="tl-title">El día más especial</h3>
+      <p class="tl-desc">
+        Describe aquí qué pasó ese 14 de junio tan significativo para ambos.
+        Esta es la fecha que más quieres resaltar en su historia.
+      </p>
+      <!-- FOTO 2: Reemplaza "src" con la URL de tu foto del 14 de junio -->
+      <img class="tl-photo" src="https://placehold.co/420x315/f2d9d0/c9837a?text=📸+14+de+junio" alt="14 de junio"/>
+    </div>
+ 
+    <!-- MOMENTO 3 — Agrega tantos momentos como quieras copiando este bloque -->
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <p class="tl-date">— Un recuerdo más —</p>
+      <h3 class="tl-title">Cada día a tu lado</h3>
+      <p class="tl-desc">
+        Escribe otro momento especial que quieras inmortalizar aquí.
+        Puede ser algo pequeño pero lleno de significado.
+      </p>
+      <!-- FOTO 3: Reemplaza "src" con la URL de otra foto tuya -->
+      <img class="tl-photo" src="https://placehold.co/420x315/f2d9d0/c9837a?text=📸+Tu+foto+aquí" alt="Foto 3"/>
+    </div>
+ 
+  </div>
+</section>
+ 
+<!-- ===== RAZONES ===== -->
+<section id="razones">
+  <span class="section-label">Con el alma</span>
+  <h2 class="section-title">Razones por las que<br>te amo</h2>
+  <p style="font-size:0.8rem;color:var(--rose);margin-bottom:2rem;letter-spacing:0.1em;">
+    Toca cada tarjeta para descubrir el mensaje ✦
+  </p>
+ 
+  <div class="cards-grid">
+ 
+    <!-- TARJETA 1 — Reemplaza el ícono, título y el mensaje del reverso -->
+    <div class="card" onclick="this.classList.toggle('flipped')">
+      <div class="card-inner">
+        <div class="card-front">
+          <span class="icon">🌸</span>
+          <h3>Tu sonrisa</h3>
+        </div>
+        <div class="card-back">
+          <!-- MENSAJE 1: Reemplaza este texto con tu mensaje personal -->
+          <p class="card-msg">"Tu sonrisa ilumina mis días más oscuros y me recuerda que todo vale la pena."</p>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- TARJETA 2 -->
+    <div class="card" onclick="this.classList.toggle('flipped')">
+      <div class="card-inner">
+        <div class="card-front">
+          <span class="icon">💫</span>
+          <h3>Tu alma</h3>
+        </div>
+        <div class="card-back">
+          <!-- MENSAJE 2: Reemplaza con tu propio texto -->
+          <p class="card-msg">"Tienes el alma más pura que he conocido. Me enamoras por dentro y por fuera."</p>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- TARJETA 3 -->
+    <div class="card" onclick="this.classList.toggle('flipped')">
+      <div class="card-inner">
+        <div class="card-front">
+          <span class="icon">🤍</span>
+          <h3>Tu ternura</h3>
+        </div>
+        <div class="card-back">
+          <!-- MENSAJE 3 -->
+          <p class="card-msg">"Cada gesto tuyo, pequeño o grande, lleva una ternura que me derrite por completo."</p>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- TARJETA 4 -->
+    <div class="card" onclick="this.classList.toggle('flipped')">
+      <div class="card-inner">
+        <div class="card-front">
+          <span class="icon">🌹</span>
+          <h3>Tu valentía</h3>
+        </div>
+        <div class="card-back">
+          <!-- MENSAJE 4 -->
+          <p class="card-msg">"Admiro cómo enfrentas la vida con tanta fuerza. Eres mi inspiración cada día."</p>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- TARJETA 5 -->
+    <div class="card" onclick="this.classList.toggle('flipped')">
+      <div class="card-inner">
+        <div class="card-front">
+          <span class="icon">✨</span>
+          <h3>Tu luz</h3>
+        </div>
+        <div class="card-back">
+          <!-- MENSAJE 5 -->
+          <p class="card-msg">"Donde tú estás, siempre hay luz. Gracias por alumbrar mi mundo, conejita."</p>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- TARJETA 6 — Puedes agregar más copiando este bloque -->
+    <div class="card" onclick="this.classList.toggle('flipped')">
+      <div class="card-inner">
+        <div class="card-front">
+          <span class="icon">🫶</span>
+          <h3>Simplemente tú</h3>
+        </div>
+        <div class="card-back">
+          <!-- MENSAJE 6 -->
+          <p class="card-msg">"No existe razón suficiente, solo sé que eres la persona que mi corazón eligió."</p>
+        </div>
+      </div>
+    </div>
+ 
+  </div>
+</section>
+ 
+<div class="divider"></div>
+ 
+<!-- ===== PIE DE PÁGINA ===== -->
+<footer>
+  ✦ Hecho con amor por Jesús, para Niurka Mariley ✦ Para siempre ✦
+</footer>
+ 
+<!-- ===== BOTÓN FLOTANTE (carta de amor) ===== -->
+<button id="fab" onclick="openModal()" title="Abrir carta de amor">💌</button>
+ 
+<!-- ===== MODAL — CARTA FINAL ===== -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeOnBg(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-icon">💌</div>
+    <h2 class="modal-title">Una carta para ti</h2>
+    <!-- CARTA: Reemplaza TODO el texto dentro de .modal-body con tu carta personal a Niurka -->
+    <p class="modal-body">
+      Mi amor, mi Niurka Mariley...<br><br>
+      Desde que entraste en mi vida, todo cambió de una manera que jamás imaginé.
+      Cada día junto a ti es un regalo que atesoro con el alma entera.
+      Gracias por ser mi calma, mi alegría y mi hogar.
+      Eres la razón de mis mejores sonrisas.<br><br>
+      Este espacio lo construí para que siempre recuerdes cuánto te amo
+      y lo especial que eres para mí.
+    </p>
+    <!-- FIRMA: Cambia si lo deseas -->
+    <p class="modal-firma">— Con todo mi amor, Jesús 🤍</p>
+  </div>
+</div>
+ 
+<!-- ===== SCRIPTS ===== -->
+<script>
+  /* --- Pétalos flotantes --- */
+  const petalColors = ['#f2d9d0','#e8c4ba','#d4a09a','#f7ece6'];
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.style.cssText = `
+      left: ${Math.random()*100}vw;
+      background: ${petalColors[Math.floor(Math.random()*petalColors.length)]};
+      width: ${8+Math.random()*8}px;
+      height: ${10+Math.random()*10}px;
+      animation-duration: ${6+Math.random()*10}s;
+      animation-delay: ${Math.random()*10}s;
+      opacity: 0;
+    `;
+    document.body.appendChild(p);
+  }
+ 
+  /* --- Scroll reveal para la línea de tiempo --- */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.tl-item').forEach(el => observer.observe(el));
+ 
+  /* --- Modal --- */
+  function openModal()  { document.getElementById('modalOverlay').classList.add('open'); }
+  function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); }
+  function closeOnBg(e) { if (e.target === document.getElementById('modalOverlay')) closeModal(); }
+</script>
+ 
+</body>
+</html>
