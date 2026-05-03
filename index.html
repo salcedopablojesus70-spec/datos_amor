@@ -56,8 +56,7 @@
     }
     .hero-deco {
       position: absolute; inset: 0;
-      background-image:
-        radial-gradient(circle, var(--rose) 1px, transparent 1px);
+      background-image: radial-gradient(circle, var(--rose) 1px, transparent 1px);
       background-size: 40px 40px;
       opacity: 0.05;
     }
@@ -192,10 +191,6 @@
       line-height: 1.7;
       margin-bottom: 1rem;
     }
-    /* === FOTO PLACEHOLDER ===
-       Reemplaza el atributo src con la URL real de tu foto.
-       Ejemplo: src="https://i.imgur.com/tuFoto.jpg"
-    */
     .tl-photo {
       width: 100%; max-width: 420px;
       aspect-ratio: 4/3;
@@ -204,10 +199,9 @@
       border: 3px solid var(--blush);
       box-shadow: 4px 6px 20px rgba(201,131,122,0.18);
       display: block;
-      background: var(--blush);
     }
  
-    /* ===== RAZONES ===== */
+    /* ===== RAZONES — CARDS ===== */
     #razones { max-width: 900px; }
     .cards-grid {
       display: grid;
@@ -251,13 +245,105 @@
       background: linear-gradient(135deg, var(--rose), var(--deep));
       transform: rotateY(180deg);
     }
-    /* === MENSAJES DE AMOR ===
-       Reemplaza cada párrafo .card-msg con tu mensaje personal.
-    */
     .card-msg {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1rem; font-style: italic;
       color: #fff; line-height: 1.6;
+    }
+ 
+    /* ===== GALERÍA DE RECUERDOS ===== */
+    #galeria {
+      max-width: 900px;
+      padding: 5rem 1.5rem;
+      margin: 0 auto;
+    }
+    #galeria .section-title { margin-bottom: 1.5rem; }
+    .galeria-intro {
+      font-size: 0.9rem;
+      color: var(--rose);
+      letter-spacing: 0.08em;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+    }
+ 
+    /* Video */
+    .video-wrap {
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+    .video-wrap video {
+      max-width: 600px;
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 6px 30px rgba(122,63,58,0.2);
+      display: block;
+      margin: 0 auto;
+      border: 3px solid var(--blush);
+    }
+    .video-label {
+      margin-top: 0.8rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--rose);
+    }
+ 
+    /* Grid de fotos tipo masonry CSS */
+    .photo-grid {
+      columns: 3 180px;
+      column-gap: 1rem;
+    }
+    .photo-grid-item {
+      break-inside: avoid;
+      margin-bottom: 1rem;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 2.5px solid var(--blush);
+      box-shadow: 2px 4px 14px rgba(201,131,122,0.13);
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.6s, transform 0.6s, box-shadow 0.3s;
+    }
+    .photo-grid-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .photo-grid-item img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      transition: transform 0.45s cubic-bezier(.4,0,.2,1);
+    }
+    .photo-grid-item:hover {
+      box-shadow: 4px 8px 28px rgba(122,63,58,0.22);
+    }
+    .photo-grid-item:hover img {
+      transform: scale(1.07);
+    }
+ 
+    /* Lightbox */
+    .lightbox {
+      position: fixed; inset: 0;
+      background: rgba(40,20,18,0.88);
+      backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 300;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.35s;
+      padding: 1.5rem;
+    }
+    .lightbox.open { opacity: 1; pointer-events: all; }
+    .lightbox img {
+      max-width: 92vw;
+      max-height: 88vh;
+      border-radius: 14px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      object-fit: contain;
+    }
+    .lightbox-close {
+      position: absolute; top: 1.2rem; right: 1.5rem;
+      background: none; border: none; cursor: pointer;
+      color: #fff; font-size: 1.8rem; line-height: 1;
     }
  
     /* ===== DIVIDER ===== */
@@ -318,9 +404,7 @@
       font-size: 1.9rem; font-weight: 300;
       color: var(--deep); margin-bottom: 1.2rem;
     }
-    /* === CARTA FINAL ===
-       Reemplaza el texto dentro de .modal-body con tu carta personal.
-    */
+    /* === CARTA FINAL: Reemplaza el texto de .modal-body con tu carta === */
     .modal-body {
       font-size: 0.95rem; font-weight: 300;
       color: #7a5e5b; line-height: 1.85;
@@ -347,13 +431,12 @@
       .card-front h3 { font-size: 0.95rem; }
       .card-msg { font-size: 0.85rem; }
       section { padding: 3.5rem 1.2rem; }
+      #galeria { padding: 3.5rem 1.2rem; }
+      .photo-grid { columns: 2 130px; }
     }
   </style>
 </head>
 <body>
- 
-<!-- ===== PÉTALOS ANIMADOS ===== -->
-<!-- Script genera pétalos de rosa flotantes automáticamente -->
  
 <!-- ===== HERO ===== -->
 <section id="hero">
@@ -370,53 +453,38 @@
 <!-- ===== LÍNEA DE TIEMPO ===== -->
 <section id="timeline">
   <span class="section-label">Nuestra historia</span>
-  <h2 class="section-title">Los momentos que<br>guardo en el corazón</h2>
+  <h2 class="section-title">Muestra de mi amor</h2>
  
   <div class="timeline-wrap">
  
-    <!-- MOMENTO 1 — Reemplaza la fecha, título, descripción y src de la foto -->
+    <!-- MOMENTO 1 -->
     <div class="tl-item">
       <div class="tl-dot"></div>
-      <p class="tl-date">— El día que todo comenzó —</p>
+      <p class="tl-date">— Nuestro 1er año felizmente enamorados —</p>
       <h3 class="tl-title">El primer momento</h3>
       <p class="tl-desc">
-        Aquí escribe cómo se conocieron, qué sentiste, ese instante especial
-        que cambió todo. Reemplaza este texto con tus palabras.
+        "todo lo que siento por ti no se puede expresar ni siquiera en esta pagina, pero se que te amo mas que nada en este mundo, eres muy especial para mi mi amor, TE AMO."
       </p>
-      <!-- FOTO 1: Reemplaza "src" con la URL de tu primera foto -->
-      <img class="tl-photo" src="https://placehold.co/420x315/f2d9d0/c9837a?text=📸+Tu+foto+aquí" alt="Foto 1"/>
+      <!-- Foto: amor.jpg debe estar en la misma carpeta que index.html -->
+      <img class="tl-photo" src="amor.jpg" alt="Nuestro primer año" onerror="this.src='https://placehold.co/420x315/f2d9d0/c9837a?text=amor.jpg'"/>
     </div>
  
-    <!-- MOMENTO 2 — 14 de junio ⭐ -->
+    <!-- MOMENTO 2 — 21 de cada mes ⭐ -->
     <div class="tl-item">
       <div class="tl-dot"></div>
-      <p class="tl-date">— 14 de junio ⭐ —</p>
-      <h3 class="tl-title">El día más especial</h3>
+      <p class="tl-date">— 21 de cada mes hermoso contigo mi vida ⭐ —</p>
+      <h3 class="tl-title">Son los días más especiales de mi vida</h3>
       <p class="tl-desc">
-        Describe aquí qué pasó ese 14 de junio tan significativo para ambos.
-        Esta es la fecha que más quieres resaltar en su historia.
+        "Cada día es especial contigo, me demuestras amor y confianza, sé que todo lo malo paso al inicio, pero no volverá a pasar, esta pagina web es una muestra pequeña de mi compromiso contigo, yo me quiero casar contigo MARILEY yo te AMO"
       </p>
-      <!-- FOTO 2: Reemplaza "src" con la URL de tu foto del 14 de junio -->
-      <img class="tl-photo" src="https://placehold.co/420x315/f2d9d0/c9837a?text=📸+14+de+junio" alt="14 de junio"/>
-    </div>
- 
-    <!-- MOMENTO 3 — Agrega tantos momentos como quieras copiando este bloque -->
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <p class="tl-date">— Un recuerdo más —</p>
-      <h3 class="tl-title">Cada día a tu lado</h3>
-      <p class="tl-desc">
-        Escribe otro momento especial que quieras inmortalizar aquí.
-        Puede ser algo pequeño pero lleno de significado.
-      </p>
-      <!-- FOTO 3: Reemplaza "src" con la URL de otra foto tuya -->
-      <img class="tl-photo" src="https://placehold.co/420x315/f2d9d0/c9837a?text=📸+Tu+foto+aquí" alt="Foto 3"/>
+      <!-- Foto: amor1.jpg debe estar en la misma carpeta que index.html -->
+      <img class="tl-photo" src="amor1.jpg" alt="21 de cada mes" onerror="this.src='https://placehold.co/420x315/f2d9d0/c9837a?text=amor1.jpg'"/>
     </div>
  
   </div>
 </section>
  
-<!-- ===== RAZONES ===== -->
+<!-- ===== RAZONES POR LAS QUE TE AMO ===== -->
 <section id="razones">
   <span class="section-label">Con el alma</span>
   <h2 class="section-title">Razones por las que<br>te amo</h2>
@@ -426,7 +494,7 @@
  
   <div class="cards-grid">
  
-    <!-- TARJETA 1 — Reemplaza el ícono, título y el mensaje del reverso -->
+    <!-- TARJETA 1 — Reemplaza el mensaje del reverso con tu texto -->
     <div class="card" onclick="this.classList.toggle('flipped')">
       <div class="card-inner">
         <div class="card-front">
@@ -434,7 +502,6 @@
           <h3>Tu sonrisa</h3>
         </div>
         <div class="card-back">
-          <!-- MENSAJE 1: Reemplaza este texto con tu mensaje personal -->
           <p class="card-msg">"Tu sonrisa ilumina mis días más oscuros y me recuerda que todo vale la pena."</p>
         </div>
       </div>
@@ -448,7 +515,6 @@
           <h3>Tu alma</h3>
         </div>
         <div class="card-back">
-          <!-- MENSAJE 2: Reemplaza con tu propio texto -->
           <p class="card-msg">"Tienes el alma más pura que he conocido. Me enamoras por dentro y por fuera."</p>
         </div>
       </div>
@@ -462,7 +528,6 @@
           <h3>Tu ternura</h3>
         </div>
         <div class="card-back">
-          <!-- MENSAJE 3 -->
           <p class="card-msg">"Cada gesto tuyo, pequeño o grande, lleva una ternura que me derrite por completo."</p>
         </div>
       </div>
@@ -476,7 +541,6 @@
           <h3>Tu valentía</h3>
         </div>
         <div class="card-back">
-          <!-- MENSAJE 4 -->
           <p class="card-msg">"Admiro cómo enfrentas la vida con tanta fuerza. Eres mi inspiración cada día."</p>
         </div>
       </div>
@@ -490,13 +554,12 @@
           <h3>Tu luz</h3>
         </div>
         <div class="card-back">
-          <!-- MENSAJE 5 -->
           <p class="card-msg">"Donde tú estás, siempre hay luz. Gracias por alumbrar mi mundo, conejita."</p>
         </div>
       </div>
     </div>
  
-    <!-- TARJETA 6 — Puedes agregar más copiando este bloque -->
+    <!-- TARJETA 6 -->
     <div class="card" onclick="this.classList.toggle('flipped')">
       <div class="card-inner">
         <div class="card-front">
@@ -504,7 +567,6 @@
           <h3>Simplemente tú</h3>
         </div>
         <div class="card-back">
-          <!-- MENSAJE 6 -->
           <p class="card-msg">"No existe razón suficiente, solo sé que eres la persona que mi corazón eligió."</p>
         </div>
       </div>
@@ -513,14 +575,104 @@
   </div>
 </section>
  
+<!-- ===== GALERÍA DE RECUERDOS Y VIDEO ===== -->
+<section id="galeria">
+  <span class="section-label">Nuestros recuerdos</span>
+  <h2 class="section-title">Galería de<br>nuestros momentos</h2>
+  <p class="galeria-intro">Cada foto guarda un pedacito de lo que somos ✦</p>
+ 
+  <!-- VIDEO -->
+  <div class="video-wrap">
+    <!-- Video: amoreMARI.mp4 debe estar en la misma carpeta que index.html -->
+    <video src="amoreMARI.mp4" controls playsinline poster="amor.jpg">
+      Tu navegador no soporta video HTML5.
+    </video>
+    <p class="video-label">✦ Nuestro video especial ✦</p>
+  </div>
+ 
+  <!-- GALERÍA DE FOTOS — Grid tipo Masonry -->
+  <div class="photo-grid">
+ 
+    <!-- amor2.jpg -->
+    <div class="photo-grid-item">
+      <img src="amor2.jpg" alt="Recuerdo 2" loading="lazy"
+           onerror="this.src='https://placehold.co/400x300/f2d9d0/c9837a?text=amor2.jpg'"
+           onclick="openLightbox(this.src)"/>
+    </div>
+ 
+    <!-- amor3.jpg -->
+    <div class="photo-grid-item">
+      <img src="amor3.jpg" alt="Recuerdo 3" loading="lazy"
+           onerror="this.src='https://placehold.co/400x500/f2d9d0/c9837a?text=amor3.jpg'"
+           onclick="openLightbox(this.src)"/>
+    </div>
+ 
+    <!-- amor4.jpg -->
+    <div class="photo-grid-item">
+      <img src="amor4.jpg" alt="Recuerdo 4" loading="lazy"
+           onerror="this.src='https://placehold.co/400x350/f2d9d0/c9837a?text=amor4.jpg'"
+           onclick="openLightbox(this.src)"/>
+    </div>
+ 
+    <!-- amor5.jpg -->
+    <div class="photo-grid-item">
+      <img src="amor5.jpg" alt="Recuerdo 5" loading="lazy"
+           onerror="this.src='https://placehold.co/400x400/f2d9d0/c9837a?text=amor5.jpg'"
+           onclick="openLightbox(this.src)"/>
+    </div>
+ 
+    <!-- amor6.jpg -->
+    <div class="photo-grid-item">
+      <img src="amor6.jpg" alt="Recuerdo 6" loading="lazy"
+           onerror="this.src='https://placehold.co/400x300/f2d9d0/c9837a?text=amor6.jpg'"
+           onclick="openLightbox(this.src)"/>
+    </div>
+ 
+    <!-- amor7.jpg -->
+    <div class="photo-grid-item">
+      <img src="amor7.jpg" alt="Recuerdo 7" loading="lazy"
+           onerror="this.src='https://placehold.co/400x460/f2d9d0/c9837a?text=amor7.jpg'"
+           onclick="openLightbox(this.src)"/>
+    </div>
+ 
+    <!-- amor8.jpg -->
+    <div class="photo-grid-item">
+      <img src="amor8.jpg" alt="Recuerdo 8" loading="lazy"
+           onerror="this.src='https://placehold.co/400x320/f2d9d0/c9837a?text=amor8.jpg'"
+           onclick="openLightbox(this.src)"/>
+    </div>
+ 
+    <!-- amor9.jpg -->
+    <div class="photo-grid-item">
+      <img src="amor9.jpg" alt="Recuerdo 9" loading="lazy"
+           onerror="this.src='https://placehold.co/400x380/f2d9d0/c9837a?text=amor9.jpg'"
+           onclick="openLightbox(this.src)"/>
+    </div>
+ 
+    <!-- yo.jpg -->
+    <div class="photo-grid-item">
+      <img src="yo.jpg" alt="Yo para ti" loading="lazy"
+           onerror="this.src='https://placehold.co/400x450/f2d9d0/c9837a?text=yo.jpg'"
+           onclick="openLightbox(this.src)"/>
+    </div>
+ 
+  </div>
+</section>
+ 
+<!-- Lightbox para ver fotos en grande -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightbox-img" src="" alt="Foto ampliada"/>
+</div>
+ 
 <div class="divider"></div>
  
-<!-- ===== PIE DE PÁGINA ===== -->
+<!-- ===== FOOTER ===== -->
 <footer>
   ✦ Hecho con amor por Jesús, para Niurka Mariley ✦ Para siempre ✦
 </footer>
  
-<!-- ===== BOTÓN FLOTANTE (carta de amor) ===== -->
+<!-- ===== BOTÓN FLOTANTE ===== -->
 <button id="fab" onclick="openModal()" title="Abrir carta de amor">💌</button>
  
 <!-- ===== MODAL — CARTA FINAL ===== -->
@@ -529,7 +681,7 @@
     <button class="modal-close" onclick="closeModal()">✕</button>
     <div class="modal-icon">💌</div>
     <h2 class="modal-title">Una carta para ti</h2>
-    <!-- CARTA: Reemplaza TODO el texto dentro de .modal-body con tu carta personal a Niurka -->
+    <!-- CARTA: Reemplaza este texto con tu carta personal a Niurka -->
     <p class="modal-body">
       Mi amor, mi Niurka Mariley...<br><br>
       Desde que entraste en mi vida, todo cambió de una manera que jamás imaginé.
@@ -539,7 +691,6 @@
       Este espacio lo construí para que siempre recuerdes cuánto te amo
       y lo especial que eres para mí.
     </p>
-    <!-- FIRMA: Cambia si lo deseas -->
     <p class="modal-firma">— Con todo mi amor, Jesús 🤍</p>
   </div>
 </div>
@@ -558,21 +709,34 @@
       height: ${10+Math.random()*10}px;
       animation-duration: ${6+Math.random()*10}s;
       animation-delay: ${Math.random()*10}s;
-      opacity: 0;
     `;
     document.body.appendChild(p);
   }
  
-  /* --- Scroll reveal para la línea de tiempo --- */
+  /* --- Scroll reveal: timeline + galería --- */
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.15 });
-  document.querySelectorAll('.tl-item').forEach(el => observer.observe(el));
+  }, { threshold: 0.12 });
  
-  /* --- Modal --- */
+  document.querySelectorAll('.tl-item, .photo-grid-item').forEach((el, i) => {
+    el.style.transitionDelay = (i * 0.08) + 's';
+    observer.observe(el);
+  });
+ 
+  /* --- Modal carta --- */
   function openModal()  { document.getElementById('modalOverlay').classList.add('open'); }
   function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); }
   function closeOnBg(e) { if (e.target === document.getElementById('modalOverlay')) closeModal(); }
+ 
+  /* --- Lightbox galería --- */
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('open');
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeLightbox(); } });
 </script>
  
 </body>
